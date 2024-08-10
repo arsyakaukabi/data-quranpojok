@@ -1,3 +1,5 @@
+# data/repository/quran_repository.py
+
 from domain.entities import Surah, Ayah
 from data.database.models import SurahModel, AyahModel, session
 
@@ -20,7 +22,18 @@ class QuranRepository:
             verse_number=ayah.verse_number,
             text_uthmani=ayah.text_uthmani,
             text_indopak=ayah.text_indopak,
-            text_imlaei=ayah.text_imlaei
+            text_imlaei=ayah.text_imlaei,
+            page_number=ayah.page_number,
+            juz_number=ayah.juz_number
         )
         session.add(ayah_record)
         session.commit()
+
+    def update_ayah(self, ayah: Ayah):
+        ayah_record = session.query(AyahModel).filter_by(id=ayah.id).first()
+        if ayah_record:
+            ayah_record.page_number = ayah.page_number
+            ayah_record.juz_number = ayah.juz_number
+            session.commit()
+        else:
+            self.save_ayah(ayah)  # Insert if not exists

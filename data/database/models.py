@@ -1,10 +1,11 @@
+# data/database/models.py
+
 from sqlalchemy import create_engine, Column, Integer, String, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from .env file
 load_dotenv()
 
 Base = declarative_base()
@@ -22,9 +23,11 @@ class AyahModel(Base):
     id = Column(Integer, primary_key=True, autoincrement=False)
     surah_id = Column(Integer, nullable=False)
     verse_number = Column(Integer, nullable=False)
-    text_uthmani = Column(String, nullable=True)
+    text_uthmani = Column(String, nullable=False)
     text_indopak = Column(String, nullable=True)
     text_imlaei = Column(String, nullable=True)
+    page_number = Column(Integer, nullable=True)
+    juz_number = Column(Integer, nullable=True)
 
 # Load database credentials from .env
 DB_USERNAME = os.getenv("DB_USERNAME")
@@ -39,8 +42,8 @@ engine = create_engine(
 )
 
 # Drop all tables if they exist and then create them again
-Base.metadata.drop_all(engine)  # Drop all existing tables
-Base.metadata.create_all(engine)  # Create all tables again
+Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine)
 
 Session = sessionmaker(bind=engine)
 session = Session()
