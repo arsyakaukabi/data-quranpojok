@@ -14,8 +14,8 @@ This project involves creating a Quran database using PostgreSQL. Data is fetche
 
 1. **Clone the Repository**
    ```bash
-   git clone <your-repository-url>
-   cd <your-repository-directory>
+   git clone https://github.com/arsyakaukabi/data-quranpojok
+   cd data-quranpojok
 2. **Create a Virtual Environment**
    ```bash
     python -m venv venv
